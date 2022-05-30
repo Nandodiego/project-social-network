@@ -11,7 +11,8 @@
             <p class="form__errorMessage" v-if="emailError.state">{{emailError.message}}</p>
             <p class="form__errorMessage" v-if="errorExist.state">{{errorExist.message}}</p>
             <label class="form__label" for="password">Contraseña</label>
-            <input v-model="dataForm.password" class="form__input"  id="password" type="password">
+            <input v-model="dataForm.password" class="form__input"  id="password" :type="changeTypePass">
+            <img v-if="hasShowEye" @click="showPassword()" class="form__show-pass" :src="showPasswordImage" alt="show password">
             <p class="form__errorMessage" v-if="passwordError.state">{{passwordError.message}}</p>
             <router-link :to="{name: 'recovery-password'}" class="form__text-password">Olvidé mi contraseña.</router-link>
             <section class="form__footer">
@@ -25,9 +26,11 @@
 <script type="module" src="/path/to/js.cookie.mjs"></script>
 <script>
 
-import { setCookie, getCookie } from '@/utils/cookies.helper'
+import { setCookie, getCookie } from '@/utils/cookies.helper';
 import { userServices } from '../services/user/user.services.js';
-
+import showPasswordImg from '../assets/show-pass.png';
+import hidenPasswordImg from '../assets/hiden-pass.png';
+ 
 export default {
     name: 'log-in-view',
     data(){
@@ -53,7 +56,10 @@ export default {
                 message: ''
             },
             amountError: 0,
-            token: ''
+            token: '',
+            changeTypePass: 'password',
+            showPasswordImage: hidenPasswordImg,
+            hasShowEye: false
         }
     },
     methods: {
@@ -97,6 +103,15 @@ export default {
                 }
             }
         },
+        showPassword(){
+            if(this.changeTypePass === 'password'){
+                this.changeTypePass = 'text';
+                this.showPasswordImage = showPasswordImg;
+            }else if(this.changeTypePass === 'text'){
+                this.changeTypePass = 'password';
+                this.showPasswordImage = hidenPasswordImg;
+            }
+        },
         resetForm(){
             this.dataForm.email = "";
             this.dataForm.password = "";
@@ -107,11 +122,20 @@ export default {
             });
         }
     },
+    watch: {
+        'dataForm.password': function (){
+            if(this.dataForm.password.length > 0){
+                this.hasShowEye = true;
+            }else{
+                this.hasShowEye = false;
+            }
+        }
+    },
     mounted(){
         if(getCookie('token')){
             this.$router.push({name: 'landing'});
         }
-    }
+    },
 }
 </script>
 
@@ -156,6 +180,14 @@ export default {
 
     .form__input:focus{
         outline: none;
+    }
+
+    .form__show-pass{
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        transform: translate(265px, 202px);
+        cursor: pointer;
     }
 
     .form__errorMessage{
@@ -218,6 +250,12 @@ export default {
             width: 550px;
             height: 80px;
             font-size: 30px;
+        }
+
+        .form__show-pass{
+            height: 40px;
+            width: 40px;
+            transform: translate(492px, 318px);
         }
 
         .form__errorMessage{

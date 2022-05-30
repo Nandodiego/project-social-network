@@ -125,6 +125,7 @@ export default {
         width: 80%;
         border-radius: 8px;
         display: flex;
+        height: 86%;
         flex-direction: column;
         justify-content: center;
     }

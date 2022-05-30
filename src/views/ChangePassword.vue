@@ -7,7 +7,8 @@
             @submit.prevent="changePass()"
         >
             <label class="form__label" for="password">Contraseña</label>
-            <input v-model="dataForm.password" class="form__input" type="password">
+            <input v-model="dataForm.password" class="form__input" :type="changeTypePass">
+            <img v-if="hasShowEye" @click="showPassword()" class="form__show-pass" :src="showPasswordImage" alt="show password">
             <p v-if="errorPassword.state" class="form__errorMessage" >{{errorPassword.message}}</p>
             <div class="form__container">
                 <button class="container__button" type="submit">Actualizar</button>
@@ -20,6 +21,9 @@
 
 import { getCookie, } from '@/utils/cookies.helper'
 import { userServices } from '../services/user/user.services.js'
+import showPasswordImg from '../assets/show-pass.png';
+import hidenPasswordImg from '../assets/hiden-pass.png';
+
 
 export default {
     name: 'change-password-view',
@@ -33,7 +37,10 @@ export default {
                 password: ''
             },
             amountError: 0,
-            token: ''
+            token: '',
+            hasShowEye: false,
+            showPasswordImage: hidenPasswordImg,
+            changeTypePass: 'password',
         }
     },
     methods: {
@@ -58,6 +65,24 @@ export default {
                 console.error(error);
             }
         },
+        showPassword(){
+            if(this.changeTypePass === 'password'){
+                this.changeTypePass = 'text';
+                this.showPasswordImage = showPasswordImg;
+            }else if(this.changeTypePass === 'text'){
+                this.changeTypePass = 'password';
+                this.showPasswordImage = hidenPasswordImg;
+            }
+        },
+    },
+    watch: {
+        'dataForm.password': function (){
+            if(this.dataForm.password.length > 0){
+                this.hasShowEye = true;
+            }else{
+                this.hasShowEye = false;
+            }
+        }
     },
     mounted(){
         if(getCookie('token')){
@@ -116,6 +141,15 @@ export default {
         padding: 0px 8px;
     }
 
+    .form__show-pass{
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        transform: translate(265px, 43px);
+        cursor: pointer;
+    }
+
+
     .form__container{
         display: flex;
         flex-direction: row;
@@ -161,6 +195,12 @@ export default {
             width: 550px;
             height: 80px;
             font-size: 30px;
+        }
+
+        .form__show-pass{
+            height: 40px;
+            width: 40px;
+            transform: translate(492px, 90px);
         }
         
         .form__errorMessage{

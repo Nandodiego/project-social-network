@@ -16,6 +16,7 @@
             <p class="form__errorMessage" v-if="errorMessage.state">{{errorMessage.messageNick}}</p>
             <label class="form__label" for="password">Contraseña</label>
             <input v-model="dataForm.password" class="form__input"  id="password" type="password">
+            <img v-if="hasShowEye" @click="showPassword()" class="form__show-pass" :src="showPasswordImage" alt="show password">
             <p class="form__errorMessage" v-if="passwordError.state">{{passwordError.message}}</p>
             <router-link :to="{name: 'log-in'}" class="form__router">Ya tengo cuenta.</router-link>
             <section class="form__footer">
@@ -29,6 +30,8 @@
 
 import { getCookie } from '@/utils/cookies.helper'
 import { userServices } from '../services/user/user.services.js'
+import showPasswordImg from '../assets/show-pass.png';
+import hidenPasswordImg from '../assets/hiden-pass.png';
 
 export default {
     name: 'sing-in-view',
@@ -56,7 +59,11 @@ export default {
                 messageEmail: '',
                 messageNick: ''
             },
-            amountErrors: 0
+            amountErrors: 0,
+            hasShowEye: false,
+            changeTypePass: 'password',
+            showPasswordImage: hidenPasswordImg,
+
         }
     },
     methods: {
@@ -114,6 +121,24 @@ export default {
         },
         changeView(){
             this.$router.push({name: 'landing'});
+        },
+        showPassword(){
+            if(this.changeTypePass === 'password'){
+                this.changeTypePass = 'text';
+                this.showPasswordImage = showPasswordImg;
+            }else if(this.changeTypePass === 'text'){
+                this.changeTypePass = 'password';
+                this.showPasswordImage = hidenPasswordImg;
+            }
+        },
+    },
+    watch: {
+        'dataForm.password': function (){
+            if(this.dataForm.password.length > 0){
+                this.hasShowEye = true;
+            }else{
+                this.hasShowEye = false;
+            }
         }
     },
     mounted(){
@@ -166,6 +191,14 @@ export default {
 
     .form__input:focus{
         outline: none;
+    }
+
+    .form__show-pass{
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        transform: translate(265px, 321px);
+        cursor: pointer;
     }
 
     .form__errorMessage{
@@ -222,6 +255,12 @@ export default {
             width: 550px;
             height: 80px;
             font-size: 30px;
+        }
+
+        .form__show-pass{
+            height: 40px;
+            width: 40px;
+            transform: translate(492px, 505px);
         }
 
         .form__errorMessage{
