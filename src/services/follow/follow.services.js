@@ -3,23 +3,17 @@ const URL_API = `${process.env.VUE_APP_URL_API}follower`;
 
 export const followServices =  {
     followUser: async (token, data) => {
-        return axios({
-            method: 'POST',
-            url: `${URL_API}/follow`,
+        return axios.post(`${URL_API}/follow`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
-            },
-            data
-        })
+            }
+        });
     },
     unFollowUser: async (token, data) => {
-        return axios({
-            method: 'DELETE',
-            url: `${URL_API}/un-follow`,
+        return axios.delete(`${URL_API}/un-follow`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
-            },
-            data
-        })
+            }
+        });
     }
 }
