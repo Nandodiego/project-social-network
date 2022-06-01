@@ -16,32 +16,24 @@ export const userServices = {
         return axios.put(`${URL_API}auth/change-password`, user)
     },
     userData:async (id, token) => {
-        return axios({
-            method: 'GET',
-            url: `${URL_API}profile/${id}`,
+        return axios.get( `${URL_API}profile/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })
+        });
     },
     findUser: async (token, data) => {
-        return axios({
-            method: 'POST',
-            url: `${URL_API}users/find`,
+        return axios.post(`${URL_API}users/find`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            data
-        })
+        });
     },
     changeImage: async (id, token, data) =>{
-        return axios({
-            method: 'PUT',
-            url: `${URL_API}users/change-phote/${id}`,
+        return axios.put( `${URL_API}users/change-phote/${id}`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            data
         });
     },
 }
