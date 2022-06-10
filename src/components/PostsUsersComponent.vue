@@ -9,13 +9,16 @@
             <div
                 @click="changeDivRow()"
             >
-                <img class="img image-row" src="../assets/logo.svg" alt="">
+                <img class="img postsRow" src="../assets/logo.svg" alt="">
             </div>
         </div>
+        <div class="containerNotFoundPosts" v-if="arrayPosts.length === 0">
+            <p class="containerNotFoundPosts__text">No hay publicaciones disponibles</p>
+        </div>
         <div class="div"
-            :class="{'div-column': active}"
+            :class="{'containerColumn': active}"
         >
-            <article class="container__image-column"
+            <article class="container__postsColumn"
                 v-for="post in arrayPosts" :key="post.id"
             >
                 <img @click="getPostsById(post.id)" class="galery__image" :src="post.urlImage" alt="">
@@ -151,6 +154,15 @@ export default {
         width: 100vw;
     }
 
+    .containerNotFoundPosts{
+        margin-top: 12px;
+    }
+
+    .containerNotFoundPosts__text{
+        font-size: 14px;
+        text-align: center;
+    }
+
     .div{
         display: grid;
         width: 100%;
@@ -158,20 +170,20 @@ export default {
         grid-template-columns: repeat(3,1fr);
     }
 
-    .div-column{
+    .containerColumn{
         display: grid;
         width: 100%;
         margin: auto;
         grid-template-columns: repeat(1,1fr);
     }
 
-    .div-column .galery__image{
+    .containerColumn .galery__image{
         object-fit: cover;
         width: 100%;
         height: 420px;
     }
 
-    .container__image-column{
+    .container__postsColumn{
         margin: 2px;
     }
 
@@ -186,7 +198,15 @@ export default {
             height: 50px;
         }
 
-        .image-row{
+        .containerNotFoundPosts{
+            margin-top: 24px;
+        }
+
+        .containerNotFoundPosts__text{
+            font-size: 24px;
+        }
+
+        .postsRow{
             width: 50.5px;
             height: 50.5px;
         }
@@ -200,7 +220,7 @@ export default {
             height: 240px;
         }
 
-         .div-column .galery__image{
+         .containerColumn .galery__image{
             height: 650px;
         }
     }

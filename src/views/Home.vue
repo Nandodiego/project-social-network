@@ -4,9 +4,9 @@
             <h1 class="section__title">View</h1>
         </section>
         <main class="main">
-            <p class="main__text-one">Comparte</p>
-            <p class="main__text-two">y</p>
-            <p class="main__text-three">Vibra</p>
+            <p class="main__textOne">Comparte</p>
+            <p class="main__textTwo">y</p>
+            <p class="main__textThree">Vibra</p>
         </main>
         <section class="footer">
             <router-link :to="{name:'sign-in'}" class="footer__button">Registrarse</router-link>
@@ -45,14 +45,14 @@ export default {
         text-align: center;
         color: var(--color-text);
     }
-    .main__text-one{
+    .main__textOne{
         font-size: 35px;
         color: var(--color-text);
         text-align: center;
         font-weight: 600;
     }
 
-    .main__text-two{
+    .main__textTwo{
         margin-top: 0;
         font-size: 35px;
         color: var(--color-text);
@@ -60,7 +60,7 @@ export default {
         font-weight: 600;
     }
 
-    .main__text-three{
+    .main__textThree{
         margin-top: 0;
         font-size: 35px;
         color: var(--color-text);
@@ -111,17 +111,17 @@ export default {
             font-weight: 400;
         }
 
-        .main__text-one{
+        .main__textOne{
             font-size: 60px;
             font-weight: 400;
         }
 
-        .main__text-two{
+        .main__textTwo{
             font-size: 60px;
             font-weight: 400;
         }
 
-        .main__text-three{
+        .main__textThree{
             font-size: 60px;
             font-weight: 400;
         }

@@ -10,13 +10,13 @@
             <input v-model="dataForm.email" class="form__input" id="email" type="email">
             <p class="form__errorMessage" v-if="emailError.state">{{emailError.message}}</p>
             <p class="form__errorMessage" v-if="errorMessage.state">{{errorMessage.messageEmail}}</p>
-            <label class="form__label margin-top" for="nick">Nick name</label>
+            <label class="form__label" for="nick">Nick name</label>
             <input v-model="dataForm.nickName" class="form__input"  id="nick" type="text">
             <p class="form__errorMessage" v-if="nickNameError.state">{{nickNameError.message}}</p>
             <p class="form__errorMessage" v-if="errorMessage.state">{{errorMessage.messageNick}}</p>
             <label class="form__label" for="password">Contraseña</label>
             <input v-model="dataForm.password" class="form__input"  id="password" type="password">
-            <img v-if="hasShowEye" @click="showPassword()" class="form__show-pass" :src="showPasswordImage" alt="show password">
+            <img v-if="hasShowEye" @click="showPassword()" class="form__showPassword" :src="showPasswordImage" alt="show password">
             <p class="form__errorMessage" v-if="passwordError.state">{{passwordError.message}}</p>
             <router-link :to="{name: 'log-in'}" class="form__router">Ya tengo cuenta.</router-link>
             <section class="form__footer">
@@ -193,7 +193,7 @@ export default {
         outline: none;
     }
 
-    .form__show-pass{
+    .form__showPassword{
         position: absolute;
         height: 24px;
         width: 24px;
@@ -257,7 +257,7 @@ export default {
             font-size: 30px;
         }
 
-        .form__show-pass{
+        .form__showPassword{
             height: 40px;
             width: 40px;
             transform: translate(492px, 505px);

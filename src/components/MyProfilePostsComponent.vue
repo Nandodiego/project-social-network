@@ -12,6 +12,9 @@
                 <img class="container__img" src="../assets/logo.svg" alt="">
             </div>
         </div>
+        <div class="containerNotFoundPosts" v-if="arrayPosts.length === 0">
+            <p class="containerNotFoundPosts__text">No hay publicaciones disponibles</p>
+        </div>
         <div class="div"
             :class="{'div-column': isColumn}"
         >
@@ -82,7 +85,7 @@ export default {
                 this.arrayPosts = response.data.data;
                 
                 if(getCookie('token')){
-                    this.showDeletePost = !this.showDeletePost
+                    this.showDeletePost = true
                 }
             }catch(error){
                 console.error(error);
@@ -141,6 +144,15 @@ export default {
         margin-top: 8px;
         width: 100vw;
     }
+
+    .containerNotFoundPosts{
+        margin-top: 12px;
+    }
+
+    .containerNotFoundPosts__text{
+        font-size: 14px;
+        text-align: center;
+    }
     
     .div{
         display: grid;
@@ -177,6 +189,14 @@ export default {
         .container__img{
             width: 50.5px;
             height: 50.5px;
+        }
+
+        .containerNotFoundPosts{
+            margin-top: 24px;
+        }
+
+        .containerNotFoundPosts__text{
+            font-size: 24px;
         }
 
         .div__article{

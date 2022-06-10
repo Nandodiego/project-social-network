@@ -8,7 +8,7 @@
         >
             <label class="form__label" for="password">Contraseña</label>
             <input v-model="dataForm.password" class="form__input" :type="changeTypePass">
-            <img v-if="hasShowEye" @click="showPassword()" class="form__show-pass" :src="showPasswordImage" alt="show password">
+            <img v-if="hasShowEye" @click="showPassword()" class="form__showPass" :src="showPasswordImage" alt="show password">
             <p v-if="errorPassword.state" class="form__errorMessage" >{{errorPassword.message}}</p>
             <div class="form__container">
                 <button class="container__button" type="submit">Actualizar</button>
@@ -141,7 +141,7 @@ export default {
         padding: 0px 8px;
     }
 
-    .form__show-pass{
+    .form__showPass{
         position: absolute;
         height: 24px;
         width: 24px;
@@ -197,7 +197,7 @@ export default {
             font-size: 30px;
         }
 
-        .form__show-pass{
+        .form__showPass{
             height: 40px;
             width: 40px;
             transform: translate(492px, 90px);

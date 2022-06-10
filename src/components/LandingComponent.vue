@@ -1,25 +1,24 @@
 <template>
-    <div>
+    <div class="body">
         <section class="section">
-            <div class="section__container-name">
-                <img @click="getUserLanding()" class="container-name__image" :src="userImage" alt="image">
-                <h2 @click="getUserLanding()" class="container-name__nick">{{nick}}</h2>
+            <div class="section__containerUserData">
+                <img @click="getUserLanding()" class="containerUserData__image" :src="userImage" alt="image">
+                <h2 @click="getUserLanding()" class="containerUserData__nick">{{nick}}</h2>
             </div>
-            <div class="section__container-information">
-                <img class="container-information__image" :src="image" alt="publication image">
-                <p class="container-information__text">
+            <div class="section__containerUserInformation">
+                <img class="containerUserInformation__image" :src="image" alt="publication image">
+                <p class="containerUserInformation__text">
                     {{description}}
                 </p>
-                <div v-if="amountLikes > zeroLikes" class="container-information__div">
+                <div v-if="amountLikes > zeroLikes" class="containerUserInformation__div">
                     <img class="div__iconHeart" src="../assets/heart-icon.svg" alt="">
-                    <p class="div__textLikes">
+                    <p class="div__amountLikes">
                         {{amountLikes}}
                     </p>
-                </div>
-                
+                </div>                
             </div>
-            <div class="section__container-logos">
-                <div class="container-logos__div">
+            <div class="section__containerIcons">
+                <div class="containerIcons__div">
                     <img
                         @click="sharePost()"
                         v-clipboard:copy="`${postUrl}${postId}`"                     
@@ -103,12 +102,13 @@ export default {
 </script>
 
 <style scoped>
-     .section{
+
+    .section{
         border-bottom: var(--border-sections);
         margin-bottom: 22px;
         width: 100vw;
     }
-    .section__container-name{
+    .section__containerUserData{
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -116,16 +116,7 @@ export default {
         padding: 8px;
     }
 
-    .container-name__nick{
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    .container-name__nick:active{
-        transform: scale(.9);
-    }
-
-    .container-name__image{
+    .containerUserData__image{
         width: 40px;
         height: 40px;
         cursor: pointer;
@@ -133,17 +124,26 @@ export default {
         margin-right: 8px;
     }
 
-    .container-name__image:active{
+    .containerUserData__image:active{
         transform: scale(.9);
     }
 
-    .section__container-information{
+    .containerUserData__nick{
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .containerUserData__nick:active{
+        transform: scale(.9);
+    }
+
+    .section__containerUserInformation{
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
-    .container-information__image{
+    .containerUserInformation__image{
         cursor: pointer;
         width: 100%;
         max-height: 420px;
@@ -151,15 +151,15 @@ export default {
         object-fit: cover;
     }
 
-    .container-information__text{
+    .containerUserInformation__text{
         font-size: 14px;
         color: var(--color-text);
         padding-top: 10px;
-        margin-left: 16px;
+        margin-left: 8px;
     }
 
-    .container-information__div{
-        margin-left: 16px;
+    .containerUserInformation__div{
+        margin-left: 8px;
         display: flex;
         align-items: center;
     }
@@ -175,25 +175,24 @@ export default {
         transform: scale(.9);
     }
 
-    .div__textLikes{
+    .div__amountLikes{
         font-size: 14px;
         line-height: 2;
         color: var(--color-text);
     }
 
-    .section__container-logos{
+    .section__containerIcons{
         display: flex;
         justify-content: end;
     }
 
-    .container-logos__div{
+    .containerIcons__div{
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        padding-right: 10px;
         width: 90px;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
     }
 
     .div__logo{
@@ -215,22 +214,31 @@ export default {
     }
 
     @media(min-width: 744px){
-        .container-name__image{
+        .section__containerUserData{
+            padding: 0px 0px 8px 16px;;
+        }
+
+        .containerUserData__image{
             width: 80px;
             height: 80px;
         }
 
-        .container-name__nick{
+        .containerUserData__nick{
             font-size: 24px;
         }
 
-        .container-information__image{
+        .containerUserInformation__image{
             max-height: 650px;
             min-height: 650px;
         }
 
-        .container-information__text{
+        .containerUserInformation__text{
             font-size: 24px;
+            margin-left: 16px;
+        }
+
+        .containerUserInformation__div{
+            margin-left: 16px;
         }
 
         .div__iconHeart{
@@ -238,12 +246,13 @@ export default {
             height: 28px;
         }
 
-        .div__textLikes{
+        .div__amountLikes{
             font-size: 24px;
         }
 
-        .container-logos__div{
+        .containerIcons__div{
             width: 166px;
+            margin-right: 13px;
         }
 
         .div__logo{

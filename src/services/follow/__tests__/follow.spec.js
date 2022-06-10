@@ -18,9 +18,8 @@ jest.mock("axios", () => ({
 
 
 describe("Follow services tests", () => {
-    it.skip("should follow user", async () => {
+    it("should follow user", async () => {
         const data = mockUsersFromAndTo;
-
         const response_post_mock = mockResponsePromiseResolve
 
         mockAxios.post.mockImplementation(() => Promise.resolve(response_post_mock));
@@ -32,9 +31,8 @@ describe("Follow services tests", () => {
         expect(mockAxios.post).toHaveBeenCalledTimes(1);
     });
 
-    it.skip("should fail when user wants to follow other user", async () => {
+    it("should fail when user wants to follow other user", async () => {
         const data = mockUsersFromAndTo;
-
         const error_response_post_mock = mockPromiseResponseFail;
 
         mockAxios.post.mockImplementation(() => Promise.reject(mockPromiseResponseFail));
@@ -44,11 +42,11 @@ describe("Follow services tests", () => {
         }catch(error){
             expect(error).toEqual(error_response_post_mock)
             expect(mockAxios.post).toHaveBeenCalled();
-            expect(mockAxios.post).toHaveBeenCalledTimes(1);
+            expect(mockAxios.post).toHaveBeenCalledTimes(2);
         }
     });
 
-    it.skip("should unfollow user", async () => {
+    it("should unfollow user", async () => {
         const data = mockUsersFromAndTo;
 
         mockAxios.delete
@@ -75,7 +73,7 @@ describe("Follow services tests", () => {
         }catch(error){
             expect(error).toEqual(mockUnfollowResponseFail);
             expect(mockAxios.delete).toHaveBeenCalled();
-            expect(mockAxios.delete).toHaveBeenCalledTimes(1);
+            expect(mockAxios.delete).toHaveBeenCalledTimes(2);
         }
     })
 })

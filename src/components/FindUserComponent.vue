@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <ul class="div-list__ul">
+    <div class="body">
+        <ul class="body__ul">
             <img v-if="showImage" @click="getUserLanding()" class="ul__image" :src="profileImage" alt="">
             <li @click="getUserLanding()" class="ul__li">{{nick}}</li>
             <img @click="closeList()" class="ul__icon" src="../assets/angulo-pequeno-hacia-arriba.png" alt="">
@@ -42,9 +42,8 @@ export default {
 </script>
 
 <style scoped>
-
-    .div-list__ul{
-        background: white;
+    .body__ul{
+        background: var(--white);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -62,26 +61,26 @@ export default {
     .ul__li{
         list-style: none;
         color: black;
-        background: white;
+        background: var(--white);
         width: 100%;
     }
 
     .ul__li:hover{
         cursor: pointer;
-        border-bottom: 1px solid black;
+        border-bottom: var(--border-black);
     }
 
     .ul__icon{
         width: 24px;
         height: 24px;
-        background: white;
+        background: var(--white);
         position: relative;
         transform: translate(5px, 16px);
         cursor: pointer;
     }
 
     @media(min-width: 744px){
-        .div-list__ul{
+        .body__ul{
             font-size: 24px;
         }
 

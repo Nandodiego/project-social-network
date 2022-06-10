@@ -4,30 +4,31 @@
             @click="closeModal($event)"
         >
             <section class="section">
-                <div class="section__container-name">
-                    <div class="container-name__div-data">
-                        <img class="container-name__image" :src="userImage" alt="image">
-                        <h2 class="container-name__text">{{userName}}</h2>
+                <div class="section__containerUserData">
+                    <div class="containerUserData__divData">
+                        <img class="divData__image" :src="userImage" alt="image">
+                        <h2 class="divData__username">{{userName}}</h2>
                     </div>
-                    <div class="container-name__div-delete">
-                        <img v-if="showDeletePost" @click="deletePost()" class="section__icon-x" src="../assets/icon delete post.svg" alt="icon delete post">
+                    <div class="containerUserData__divDeletePost">
+                        <img v-if="showDeletePost" @click="deletePost()" class="divDeletePost__icon" src="../assets/icon delete post.svg" alt="icon delete post">
                     </div>
                 </div>
-                <div class="section__container-information">
-                    <img class="container-information__image" :src="userPostImage" alt="publication image">
-                    <p class="container-information__text">
+                <div class="section__containerUserInformation">
+                    <img class="containerUserInformation__image" :src="userPostImage" alt="publication image">
+                    <p class="containerUserInformation__text">
                         {{userPostDescription}}
                     </p>
                 </div>
-                <div v-if="amountLikes > 0" class="section__container-likes">
-                    <img class="container-likes__icon" src="../assets/heart-icon.svg" alt="">
-                    <p class="container-likes__likes">
+                <div v-if="amountLikes > 0" class="section__containerUserLike">
+                    <img class="containerUserLike__icon" src="../assets/heart-icon.svg" alt="">
+                    <p class="containerUserLike__amountLikes">
                         {{amountLikes}}
                     </p>
                 </div>
-                <div class="section__container-logos">
-                    <div class="container-logos__div">
+                <div class="section__containerIcons">
+                    <div class="containerIcons__div">
                         <img
+                            @click="sharePost()"
                             v-clipboard:copy="`${postUrl}${postId}`"                     
                             v-clipboard:error="onError"
                             class="div__logo"
@@ -35,6 +36,7 @@
                             alt="">
                         <img @click="likePost()" class="div__logo" :src="likeLogo" alt="">
                     </div>
+                    <p class="containerIcons__textShare" v-if="textShare">Post copiado</p>
                 </div>
             </section>
         </div>
@@ -53,6 +55,7 @@ export default {
             likeLogo: like,
             iconHeart: false,
             postUrl: 'http://localhost:8080/posts-view?urlPost=',
+            textShare: false
         }
     },
     props: {
@@ -100,10 +103,13 @@ export default {
             if(e.target._prevClass === "body"){
                 this.$emit('closeModal');
             }
+        },
+        sharePost(){
+            setTimeout( () => {
+                this.textShare = false;
+            }, 2000, this.textShare = true);
         }
     },
-    mounted(){
-    }
 }
 </script>
 
@@ -125,12 +131,11 @@ export default {
         width: 80%;
         border-radius: 8px;
         display: flex;
-        height: 86%;
         flex-direction: column;
         justify-content: center;
     }
 
-    .section__container-name{
+    .section__containerUserData{
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -138,27 +143,13 @@ export default {
         padding: 0px 10px 10px 10px;
     }
 
-    .container-name__div-data{
+    .containerUserData__divData{
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    .container-name__div-delete{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .section__icon-x{
-        width: 28px;
-        height: 28px;
-    }
-
-    .section__icon-x:active{
-        transform: scale(.9);
-    }
-    .container-name__image{
+    .divData__image{
         width: 40px;
         height: 40px;
         cursor: pointer;
@@ -166,26 +157,41 @@ export default {
         margin-right: 8px;
     }
 
-    .container-name__text{
+    .divData__image:active{
+        transform: scale(.9);
+    }
+
+    .divData__username{
         font-size: 16px;
         cursor: pointer;
     }
 
-    .container-name__image:active{
+    .divData__username:active{
         transform: scale(.9);
     }
 
-    .container-name__text:active{
+    .containerUserData__divDeletePost{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .divDeletePost__icon{
+        width: 28px;
+        height: 28px;
+    }
+
+    .divDeletePost__icon:active{
         transform: scale(.9);
     }
 
-    .section__container-information{
+    .section__containerUserInformation{
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
-    .container-information__image{
+    .containerUserInformation__image{
         cursor: pointer;
         width: 100%;
         max-height: 420px;
@@ -193,39 +199,39 @@ export default {
         object-fit: cover;
     }
 
-    .container-information__text{
+    .containerUserInformation__text{
         font-size: 14px;
         color: var(--color-text);
         padding-top: 10px;
         margin-left: 10px;
     }
 
-    .section__container-likes{
+    .section__containerUserLike{
         margin-left: 10px;
         display: flex;
         align-items: center;
     }
 
-    .container-likes__icon{
+    .containerUserLike__icon{
         width: 18px;
         height: 18px;
         margin-right: 4px;
         cursor: pointer;
     }
 
-    .container-likes__likes{
+    .containerUserLike__amountLikes{
         font-size: 14px;
         line-height: 2;
         color: var(--color-text);
     }
 
-    .section__container-logos{
+    .section__containerIcons{
         display: flex;
         justify-content: end;
         border-radius: 10px;
     }
 
-    .container-logos__div{
+    .containerIcons__div{
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -243,52 +249,52 @@ export default {
         transform: scale(.9);
     }
 
+    .containerIcons__textShare{
+        position: absolute;
+        transform: translateX(168px);
+        width: 100%;
+        background: transparent;
+    }
+
     @media(min-width: 744px){
-        .section{
-            height: 960px;
-        }
 
-        .section__icon-x{
-            width: 50px;
-            height: 50px;
-        }
-
-        .section__container-name{
+        .section__containerUserData{
             width: 100%;
         }
 
-        .container-name__image{
+        .divData__image{
             width: 80px;
             height: 80px;
         }
 
-        .container-name__text{
+        .divData__username{
             font-size: 24px;
         }
 
-        .container-information__image{
+        .divDeletePost__icon{
+            width: 50px;
+            height: 50px;
+        }
+
+        .containerUserInformation__image{
             min-height: 650px;
             max-height: 650px;
         }
 
-        .container-information__text{
+        .containerUserInformation__text{
             font-size: 24px;
         }
 
-        .container-likes__icon{
+        .containerUserLike__icon{
             width: 28px;
             height: 28px;
         }
 
-        .container-likes__likes{
+        .containerUserLike__amountLikes{
             font-size: 24px;
         }
 
-        .section__container-logos{
-            border-radius: 0;
-        }
-
-        .container-logos__div{
+        .containerIcons__div{
             width: 160px;
         }
 
@@ -297,5 +303,9 @@ export default {
             height: 60px;
         }
 
+        .containerIcons__textShare{
+            font-size: 24px;
+            transform: translateX(416px);
+        }
     }
 </style>

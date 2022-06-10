@@ -12,9 +12,9 @@
             <p class="form__errorMessage" v-if="errorExist.state">{{errorExist.message}}</p>
             <label class="form__label" for="password">Contraseña</label>
             <input v-model="dataForm.password" class="form__input"  id="password" :type="changeTypePass">
-            <img v-if="hasShowEye" @click="showPassword()" class="form__show-pass" :src="showPasswordImage" alt="show password">
+            <img v-if="hasShowEye" @click="showPassword()" class="form__showPass" :src="showPasswordImage" alt="show password">
             <p class="form__errorMessage" v-if="passwordError.state">{{passwordError.message}}</p>
-            <router-link :to="{name: 'recovery-password'}" class="form__text-password">Olvidé mi contraseña.</router-link>
+            <router-link :to="{name: 'recovery-password'}" class="form__forgotMyPassword">Olvidé mi contraseña.</router-link>
             <section class="form__footer">
                 <p class="footer__errorData" v-if="errorData.state">{{errorData.message}}</p>
                 <button type="submit" class="footer__button">Iniciar sesión</button>
@@ -182,7 +182,7 @@ export default {
         outline: none;
     }
 
-    .form__show-pass{
+    .form__showPass{
         position: absolute;
         height: 24px;
         width: 24px;
@@ -195,7 +195,7 @@ export default {
         color: var(--color-text);
     }
     
-    .form__text-password{
+    .form__forgotMyPassword{
         font-size: 14px;
         text-align: right;
         color: var(--color-text);
@@ -252,7 +252,7 @@ export default {
             font-size: 30px;
         }
 
-        .form__show-pass{
+        .form__showPass{
             height: 40px;
             width: 40px;
             transform: translate(492px, 318px);
@@ -262,7 +262,7 @@ export default {
             font-size: 20px;
         }
 
-        .form__text-password{
+        .form__forgotMyPassword{
             font-size: 20px;
         }
 

@@ -22,15 +22,15 @@ export const userServices = {
             }
         });
     },
-    findUser: async (token, data) => {
-        return axios.post(`${URL_API}users/find`, data, {
+    findUser: async (token, nick) => {
+        return axios.post(`${URL_API}users/find`, nick, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
         });
     },
-    changeImage: async (id, token, data) =>{
-        return axios.put( `${URL_API}users/change-phote/${id}`, data, {
+    changeImage: async (id, token, file) =>{
+        return axios.put( `${URL_API}users/change-phote/${id}`, file, {
             headers: {
                 Authorization: `Bearer ${token}`
             },

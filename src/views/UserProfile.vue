@@ -8,8 +8,8 @@
                     <p class="container__text">{{userProfile.description}}</p>
                 </div>
             </div>
-            <div class="section-div">
-                <button :class="{'div__button-follow' : isActive}" @click="changeFollow()" class="div__button">{{follow}}</button>
+            <div class="section__containerFollow">
+                <button :class="{'containerFollow__button' : isActive}" @click="changeFollow()" class="containerFollow-button">{{follow}}</button>
             </div>
         </section>
         <section>
@@ -152,13 +152,13 @@ export default {
         width: 215px;
     }
 
-    .section-div{
+    .section__containerFollow{
         width: 92%;
         display: flex;
         justify-content: end;
     }
 
-    .div__button{
+    .containerFollow-button{
         text-align: center;
         width: 120px;
         height: 30px;
@@ -172,7 +172,7 @@ export default {
         margin-bottom: 15px;
     }
 
-    .div__button-follow{
+    .containerFollow__button{
         text-align: center;
         width: 120px;
         height: 30px;
@@ -186,7 +186,7 @@ export default {
         margin-bottom: 15px;
     }
 
-    .div__button:active{
+    .containerFollow-button:active{
         transform: scale(.9);
     }
 
@@ -209,11 +209,11 @@ export default {
             font-size: 24px;
         }
 
-        .section-div{
+        .section__containerFollow{
             width: 95%;
         }
 
-        .div__button{
+        .containerFollow-button{
             font-size: 24px;
             width: 180px;
             height: 45px;

@@ -4,7 +4,7 @@
             <input @click="showList()" @keyup.enter="findUserByNick()" v-model="findUser" class="section__input" placeholder="Buscar..." type="search">
             <img @click="findUserByNick()" class="section__loupe" src="../assets/loupe.png" alt="icon loupe">
             <p class="section__textError" v-if="hasTextErrorSearch">Lo sentimos, el usuario no existe</p>
-            <div class="section__div-list" v-if="hasList">
+            <div class="section__divList" v-if="hasList">
                 <FindUserComponent
                     v-for="nick in listNicks" :key="nick.id"
                     :nick="nick.nick"
@@ -14,8 +14,8 @@
                 />
             </div>
         </section>
-        <img @click="changeView(userLoginId)" class="logo-my-profile" src="../assets/Group.svg" alt="logo my profile">
-        <img @click="showModalCreatePost()" class="logo-create-post" src="../assets/iconCreatePost.svg" alt="logo create post">
+        <img @click="changeView(userLoginId)" class="icon__myProfile" src="../assets/Group.svg" alt="logo my profile">
+        <img @click="showModalCreatePost()" class="icon__createPost" src="../assets/iconCreatePost.svg" alt="logo create post">
         <ModalComponentCreatePost
             v-if="isModalCreatePost"
             @createPost="newPost($event)"
@@ -41,7 +41,7 @@ import { postsServices } from '../services/posts/posts.services.js';
 import userImageDefect from '../assets/user-image.webp';
 import LandingComponent from '../components/LandingComponent.vue';
 import ModalComponentCreatePost from '../components/ModalCreatePosts';
-import { getCookie, setCookie} from '@/utils/cookies.helper'
+import { getCookie } from '@/utils/cookies.helper'
 import { userServices } from '../services/user/user.services.js';
 import FindUserComponent from '@/components/FindUserComponent.vue';
 
@@ -120,11 +120,7 @@ export default {
                     }, 2000, this.hasTextErrorSearch = true);
 
                 }else if(this.listNicks.length > 0){
-                    this.hasTextErrorSearch = false;
-
-                    setCookie('lastSearches', JSON.stringify(this.listNicks));
-                    // let cookieData = JSON.parse(getCookie('lastSearches'));
-                    
+                    this.hasTextErrorSearch = false;                 
                 }
 
                 if(this.findUser.length === 0){
@@ -194,14 +190,14 @@ export default {
         transform: translateY(32px);
     }
 
-    .section__div-list{
+    .section__divList{
         box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
         display: flex;
         flex-direction: column;
         width: 200px;
         position: absolute;
         top: 54px;
-        background: white;
+        background: var(--white);
         padding: 6px 10px 10px 10px;;
     }
 
@@ -219,25 +215,25 @@ export default {
         outline: none;
     }
 
-    .logo-my-profile{
+    .icon__myProfile{
         position: absolute;
         top: 22px;
         left: 6%;
         cursor: pointer;
     }
 
-    .logo-my-profile:active{
+    .icon__myProfile:active{
         transform: scale(.9);
     }
 
-    .logo-create-post{
+    .icon__createPost{
         cursor: pointer;
         left: 85%;
         top: 22px;
         position: absolute;
     }
 
-    .logo-create-post:active{
+    .icon__createPost:active{
         transform: scale(.9);
     }
 
@@ -253,7 +249,7 @@ export default {
             transform: translateX(164px);
         }
 
-        .section__div-list{
+        .section__divList{
             width: 380px;
             height: 5%;
             top: 100px;
@@ -265,14 +261,14 @@ export default {
             font-size: 24px;
         }
 
-        .logo-my-profile{
+        .icon__myProfile{
             top: 0;
             top: 37px;
             width: 80px;
             height: 80px;
         }
 
-        .logo-create-post{
+        .icon__createPost{
             width: 72px;
             height: 72px;
             top: 40px;

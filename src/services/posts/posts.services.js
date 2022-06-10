@@ -24,7 +24,7 @@ export const postsServices = {
         });
     },
     likePostByUser: async (id, token) => {
-        return axios.put( `${URL_POSTS}like/${id}`,{
+        return axios.put( `${URL_POSTS}like/${id}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

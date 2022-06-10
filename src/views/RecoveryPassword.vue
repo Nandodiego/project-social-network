@@ -1,7 +1,7 @@
 <template>
     <div class="body">
         <section class="section">
-            <p class="section__text">Recuperar contaseña</p>
+            <p class="section__recoveryPassword">Recuperar contaseña</p>
         </section>
         <form class="form"
             @submit.prevent="sendEmail()"
@@ -76,7 +76,7 @@ export default {
     .section{
         margin-top: 212px;
     }
-    .section__text{
+    .section__recoveryPassword{
         text-align: center;
         font-size: 30px;
         font-weight: 300;
@@ -139,7 +139,7 @@ export default {
             margin-top: 0;
         }
 
-        .section__text{
+        .section__recoveryPassword{
             font-size: 52px;
             margin-bottom: 160px;
         }

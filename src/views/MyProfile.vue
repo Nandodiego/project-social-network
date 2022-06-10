@@ -1,12 +1,12 @@
 <template>
     <div class="body">
         <section id="preview" class="section">
-            <img @click="logOut()" class="section__exit" src="../assets/icon exit.svg" alt="icon exit">
+            <img @click="logOut()" class="section__iconExit" src="../assets/icon exit.svg" alt="icon exit">
             <img id="img" class="section__image" :src="userProfile.userImage" alt="profile-image">
-            <form class="section__div-file"
+            <form class="section__divFile"
             >
-                <input ref="file" type="file" name="fileToUpload" id="inputFile" accept="image/png" @change="cambiarFile()" />
-                <img class="section__logo-edit" src="../assets/icon-edit.svg" alt="icon edit">
+                <input ref="file" type="file" name="fileToUpload" id="inputFile" accept="image/png" @change="changeFile()" />
+                <img class="divFile__iconEdit" src="../assets/icon-edit.svg" alt="icon edit">
             </form>
             <div class="section__container">
                 <h1 class="container__name">{{userProfile.nick}}</h1>
@@ -39,12 +39,6 @@ export default {
     data(){
         return{
            hasActive: false,
-           styleImage: {
-               width: '',
-               marginBottom: ''
-           },
-           userData: {},
-           follow: 'seguir',
            userProfile: {
                userId: '',
                nick: '',
@@ -85,7 +79,7 @@ export default {
                console.error(error);
            }
         },
-        async cambiarFile(){
+        async changeFile(){
             try{
                 this.file = this.$refs.file.files[0];
                 const formData = new FormData();
@@ -119,7 +113,7 @@ export default {
         justify-content: center;
     }
 
-    .section__div-file{
+    .section__divFile{
         position: absolute;
         width: 38px;
         height: 38px;
@@ -148,7 +142,7 @@ export default {
         width: 100%;
     }
 
-    .section__exit{
+    .section__iconExit{
         position: absolute;
         transform: translateX(165px);
     }
@@ -162,14 +156,14 @@ export default {
         margin-bottom: 12px;
     }
 
-    .section__logo-edit{
+    .divFile__iconEdit{
         width: 38px;
         height: 38px;
         border-radius: 50%;
         cursor: pointer;
     }
 
-    .section__logo-edit:active{
+    .divFile__iconEdit:active{
         transform: scale(.9);
     }
 
@@ -189,7 +183,7 @@ export default {
             align-items: center;
         }
 
-        .section__exit{
+        .section__iconExit{
             height: 50px;
             width: 50px;
             left: 70%;
@@ -201,14 +195,14 @@ export default {
             height: 180px;
         }
 
-        .section__div-file{
+        .section__divFile{
             width: 60px;
             height: 60px;
             top: 130px;
             left: 25%;
         }
 
-        .section__logo-edit{
+        .divFile__iconEdit{
             width: 60px;
             height: 60px;
         }
