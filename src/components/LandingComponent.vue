@@ -271,4 +271,15 @@ export default {
             justify-content: center;
         }
     }
+
+    @media(min-width: 1280px){
+        .section{
+            width: 737px;
+            padding-bottom: 40px
+        }
+
+        .div__textShare{
+            right: 44%;
+        }
+    }
 </style>

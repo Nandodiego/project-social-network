@@ -136,4 +136,17 @@ export default {
             font-size: 40px;
         }
     }
+
+    @media(min-width: 1280px){
+        .section{
+            margin-bottom: 120px;
+        }
+
+        .main{
+            margin-bottom: 120px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
 </style>

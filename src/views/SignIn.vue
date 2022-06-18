@@ -1,7 +1,7 @@
 <template>
     <div class="body">
         <section class="header">
-            <h1 class="header__title">View</h1>
+            <h1 class="header__title">{{title}}</h1>
         </section>
         <form class="form"
             @submit.prevent="createUser()"
@@ -15,8 +15,10 @@
             <p class="form__errorMessage" v-if="nickNameError.state">{{nickNameError.message}}</p>
             <p class="form__errorMessage" v-if="errorMessage.state">{{errorMessage.messageNick}}</p>
             <label class="form__label" for="password">Contraseña</label>
-            <input v-model="dataForm.password" class="form__input"  id="password" type="password">
-            <img v-if="hasShowEye" @click="showPassword()" class="form__showPassword" :src="showPasswordImage" alt="show password">
+            <div class="form__containerPassword">
+                <input v-model="dataForm.password" class="form__input inputPassword"  id="password" :type="changeTypePass">
+                <img v-if="hasShowEye" @click="showPassword()" class="form__showPassword" :src="showPasswordImage" alt="show password">
+            </div>
             <p class="form__errorMessage" v-if="passwordError.state">{{passwordError.message}}</p>
             <router-link :to="{name: 'log-in'}" class="form__router">Ya tengo cuenta.</router-link>
             <section class="form__footer">
@@ -63,7 +65,8 @@ export default {
             hasShowEye: false,
             changeTypePass: 'password',
             showPasswordImage: hidenPasswordImg,
-
+            title: 'View',
+            widthScreen: window.innerWidth,
         }
     },
     methods: {
@@ -131,21 +134,53 @@ export default {
                 this.showPasswordImage = hidenPasswordImg;
             }
         },
+        onChangeWidth(){
+            this.widthScreen = window.innerWidth;
+        },
+        updateHeight(currentWidth){
+            if(currentWidth >= 1280){
+                this.title = '';
+            }else{
+                this.title = 'View'
+            }
+        }
     },
     watch: {
+        'dataForm.email': function (){
+            if(this.dataForm.email.length > 0){
+                this.emailError.state = false;
+            }
+        },
+        'dataForm.nickName': function (){
+            if(this.dataForm.nickName.length > 0){
+                this.nickNameError.state = false;
+            }
+        },
         'dataForm.password': function (){
             if(this.dataForm.password.length > 0){
                 this.hasShowEye = true;
+                this.passwordError.state = false;
             }else{
                 this.hasShowEye = false;
             }
+        },
+        widthScreen: function(newWidth){
+            this.updateHeight(newWidth);
         }
     },
     mounted(){
         if(getCookie('token')){
             this.$router.push({name: 'landing'});
         }
-    }
+
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onChangeWidth);
+        })
+        this.updateHeight(this.widthScreen);
+    },
+    beforeDestroy() { 
+        window.removeEventListener('resize', this.onChangeWidth); 
+    },
 }
 </script>
 
@@ -172,6 +207,7 @@ export default {
         margin-top: 30px;
         display: flex;
         flex-direction: column;
+        max-width: 300px;
         justify-content: flex-start;
     }
 
@@ -193,11 +229,25 @@ export default {
         outline: none;
     }
 
+    .form__containerPassword{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: var(--border-inputs);
+        border-radius: 8px;
+        padding: 0px 10px 0 0px;
+        height: 50px;
+    }
+
+    .inputPassword{
+        border: none;
+        height: 25px;
+        margin-top: 0;
+    }
+
     .form__showPassword{
-        position: absolute;
         height: 24px;
         width: 24px;
-        transform: translate(265px, 321px);
         cursor: pointer;
     }
 
@@ -246,6 +296,14 @@ export default {
             font-weight: 400;
         }
 
+        .form{
+            max-width: 550px;
+        }
+
+        .form__containerPassword{
+            height: 80px;
+        }
+
         .form__label{
             font-size: 40px;
             font-weight: 400;
@@ -257,10 +315,13 @@ export default {
             font-size: 30px;
         }
 
+        .inputPassword{
+            height: 40px;
+        }
+
         .form__showPassword{
             height: 40px;
             width: 40px;
-            transform: translate(492px, 505px);
         }
 
         .form__errorMessage{
@@ -275,6 +336,27 @@ export default {
             width: 450px;
             height: 80px;
             font-size: 40px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .form{
+            max-width: 550px;
+        }
+
+        .form__showPassword{
+            height: 40px;
+            width: 40px;
+        }
+
+        .form__label, .footer__button{
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .footer__button{
+            margin-top: 0;
+            margin-top: 20px;
         }
     }
 </style>

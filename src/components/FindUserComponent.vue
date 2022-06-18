@@ -90,4 +90,21 @@ export default {
             height: 30px;
         }
     }
+
+    @media(min-width: 1280px){
+        .ul__image{
+            width: 26px;
+            height: 26px;
+        }
+
+        .ul__li{
+            font-size: 14px;
+        }
+
+        .ul__icon{
+            width: 20px;
+            height: 20px;
+            transform: translate(5px, 7px);
+        }
+    }
 </style>

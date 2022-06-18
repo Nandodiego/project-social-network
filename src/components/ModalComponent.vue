@@ -3,7 +3,8 @@
         <div class="body"
             @click="closeModal($event)"
         >
-            <section class="section">
+            <section class="section modal-movile"
+            >
                 <div class="section__containerUserData">
                     <div class="containerUserData__divData">
                         <img class="divData__image" :src="userImage" alt="image">
@@ -33,20 +34,41 @@
                             v-clipboard:error="onError"
                             class="div__logo"
                             src="../assets/share.svg"
-                            alt="">
-                        <img @click="likePost()" class="div__logo" :src="likeLogo" alt="">
+                            alt="icon copy"
+                        >
+                        <img 
+                            @click="likePost()"
+                            class="div__logo"
+                            :src="likeLogo"
+                            alt="icon like"
+                        >
                     </div>
                     <p class="containerIcons__textShare" v-if="textShare">Post copiado</p>
                 </div>
             </section>
+            <modal-desktop-component
+                class="modal-desktop"
+                @likePost="likePost()"
+                @deletePost="deletePost"
+                @closeModalDesktop="closeModalDesktop()"
+                :userImage="userImage"
+                :userName="userName"
+                :userPostImage="userPostImage"
+                :userPostDescription="userPostDescription"
+                :postId="postId"
+                :amountLikes="amountLikes"
+                :showDeletePost="showDeletePost"
+                :changeIcon="changeIcon"
+            />
         </div>
     </div>
 </template>
 
 <script>
 
-import heartIcon from '../assets/heart-icon.svg'
-import like from '../assets/like.svg'
+import heartIcon from '../assets/heart-icon.svg';
+import ModalDesktopComponent from '../components/ModalDesktopComponent.vue';
+import like from '../assets/like.svg';
 
 export default {
     name: 'modal-component',
@@ -55,8 +77,11 @@ export default {
             likeLogo: like,
             iconHeart: false,
             postUrl: 'http://localhost:8080/posts-view?urlPost=',
-            textShare: false
+            textShare: false,
         }
+    },
+    components: {
+        ModalDesktopComponent
     },
     props: {
         userImage: {
@@ -78,6 +103,9 @@ export default {
             type: Number
         },
         showDeletePost: {
+            type: Boolean
+        },
+        changeIcon: {
             type: Boolean
         }
     },
@@ -104,11 +132,15 @@ export default {
                 this.$emit('closeModal');
             }
         },
+        closeModalDesktop(){
+            this.$emit('closeModal');
+        },
         sharePost(){
             setTimeout( () => {
                 this.textShare = false;
             }, 2000, this.textShare = true);
-        }
+        },
+        
     },
 }
 </script>
@@ -256,6 +288,14 @@ export default {
         background: transparent;
     }
 
+    .modal-movile{
+        display: flex;
+    }
+
+    .modal-desktop{
+        display: none;
+    }
+
     @media(min-width: 744px){
 
         .section__containerUserData{
@@ -306,6 +346,20 @@ export default {
         .containerIcons__textShare{
             font-size: 24px;
             transform: translateX(416px);
+        }
+    }
+
+    @media(min-width: 1280px){
+        .section{
+            width: 1000px;
+        }
+
+        .modal-movile{
+            display: none;
+        }
+
+        .modal-desktop{
+            display: flex;
         }
     }
 </style>

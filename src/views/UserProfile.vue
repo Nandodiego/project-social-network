@@ -184,10 +184,15 @@ export default {
         font-weight: 600;
         text-decoration: none;
         margin-bottom: 15px;
+        cursor: pointer;
     }
 
     .containerFollow-button:active{
         transform: scale(.9);
+    }
+
+    .containerFollow-button{
+        cursor: pointer;
     }
 
     @media(min-width: 744px){
@@ -218,5 +223,44 @@ export default {
             width: 180px;
             height: 45px;
         }
+    }
+
+    @media(min-width: 1280px){
+        .section{
+            width: 935px;
+            padding-bottom: 24px;
+            margin-top: 50px;
+        }
+
+        .div__image{
+            width: 150px;
+            height: 150px;
+        }
+
+        .container{
+            justify-content: space-evenly;
+            margin-bottom: 16px;
+            margin-top: 16px;
+        }
+
+        .container__name{
+            font-size: 25px;
+        }
+
+        .container__text{
+            width: 580px;
+            font-size: 25px;
+        }
+
+        .img{
+            width: 40px;
+            height: 50px;
+        }
+
+        .postsRow{
+            width: 50.5px;
+            height: 50.5px;
+        }
+
     }
 </style>

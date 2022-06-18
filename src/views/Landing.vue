@@ -148,8 +148,12 @@ export default {
         changeView(id){
             this.$router.push({name: 'my-profile', params: {id}});
         },
-        getUserLanding(id){
-            this.$router.push({name: 'user-profile', params: {id}});
+        getUserLanding(id){        
+            if(id === getCookie('userId')){
+                this.$router.push({name:'my-profile', params: {id}});
+            }else{
+                this.$router.push({name: 'user-profile', params: {id}});
+            }
         },
         closeModal(){
             this.isModalCreatePost = !this.isModalCreatePost;
@@ -177,6 +181,20 @@ export default {
         margin-bottom: 44px;
     }
 
+    .section__input{
+        width: 200px;
+        height: 30px;
+        border: none;
+        border: var(--border-inputs);
+        border-radius: 8px;
+        font-size: 16px;
+        padding: 0px 8px;
+    }
+
+    .section__input:focus{
+        outline: none;
+    }
+
     .section__loupe{
         width: 16px;
         height: 16px;
@@ -199,20 +217,6 @@ export default {
         top: 54px;
         background: var(--white);
         padding: 6px 10px 10px 10px;;
-    }
-
-    .section__input{
-        width: 200px;
-        height: 30px;
-        border: none;
-        border: var(--border-inputs);
-        border-radius: 8px;
-        font-size: 16px;
-        padding: 0px 8px;
-    }
-
-    .section__input:focus{
-        outline: none;
     }
 
     .icon__myProfile{
@@ -273,5 +277,39 @@ export default {
             height: 72px;
             top: 40px;
         }
+    }
+
+    @media(min-width: 1280px){
+        .section__input{
+            width: 200px;
+            height: 30px;
+            font-size: 16px;
+        }
+
+        .section__divList{
+            width: 200px;
+            top: 80px;
+        }
+
+        .section__loupe{
+            transform: translateX(80px);
+            width: 14px;
+            height: 14px;
+        }
+
+        .icon__myProfile{
+            width: 40px;
+            height: 32.95px;
+            top: 50px;
+            left: 32%;
+        }
+
+        .icon__createPost{
+            width: 30px;
+            height: 35px;
+            left: 65%;
+            top: 50px;
+        }
+    
     }
 </style>

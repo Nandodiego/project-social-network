@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="body">
         <div class="container">
             <div 
                  @click="changeDivColumn()"
@@ -69,6 +69,9 @@ export default {
             type: String
         }
     },
+    provide: {
+        changeIcon: false
+    },
     components: {
         ModalComponent
     },
@@ -98,7 +101,6 @@ export default {
                 
                 this.userPost.urlImage = userPost.urlImage;
                 this.userPost.description = userPost.description;
-
                 this.showModal = true;
             }catch(error){
                 console.error(error);
@@ -137,12 +139,24 @@ export default {
 
 <style scoped>
 
+    .body{
+        width: 100vw;
+    }
+
     .container{
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         margin-top: 8px;
         width: 100vw;
+    }
+
+    .container__image{
+        cursor: pointer;      
+    }
+
+    .container__img{
+        cursor: pointer;      
     }
 
     .containerNotFoundPosts{
@@ -152,6 +166,10 @@ export default {
     .containerNotFoundPosts__text{
         font-size: 14px;
         text-align: center;
+    }
+
+    .div__article{
+        margin: 2px;
     }
     
     .div{
@@ -178,6 +196,7 @@ export default {
         object-fit: cover;
         width: 122px;
         height: 140px;
+        cursor: pointer;
     }
 
     @media(min-width: 744px){
@@ -199,21 +218,35 @@ export default {
             font-size: 24px;
         }
 
-        .div__article{
-            margin: 2px;
-        }
-
         .article__image{
             width: 100%;
             height: 240px;
         }
 
+        .div-column .article__image{
+            height: 650px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .container{
+            justify-content: space-evenly;
+            margin-bottom: 16px;
+            margin-top: 16px;
+        }
+
         .div{
-            padding: 4px;
+            width: 935px;
         }
 
         .div-column .article__image{
-            height: 650px;
+            height: 0;
+            height: 820px;
+        }
+
+        .article__image{
+            width: 293px;
+            height: 293px;
         }
     }
 </style>

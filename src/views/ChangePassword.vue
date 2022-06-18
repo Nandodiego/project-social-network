@@ -7,8 +7,10 @@
             @submit.prevent="changePass()"
         >
             <label class="form__label" for="password">Contraseña</label>
-            <input v-model="dataForm.password" class="form__input" :type="changeTypePass">
-            <img v-if="hasShowEye" @click="showPassword()" class="form__showPass" :src="showPasswordImage" alt="show password">
+            <div class="form__containerPassword">
+                <input v-model="dataForm.password" class="form__input inputPassword" :type="changeTypePass">
+                <img v-if="hasShowEye" @click="showPassword()" class="form__showPass" :src="showPasswordImage" alt="show password">
+            </div>
             <p v-if="errorPassword.state" class="form__errorMessage" >{{errorPassword.message}}</p>
             <div class="form__container">
                 <button class="container__button" type="submit">Actualizar</button>
@@ -79,6 +81,7 @@ export default {
         'dataForm.password': function (){
             if(this.dataForm.password.length > 0){
                 this.hasShowEye = true;
+                this.errorPassword.state = false
             }else{
                 this.hasShowEye = false;
             }
@@ -130,6 +133,17 @@ export default {
         color: var(--color-text);
         margin-bottom: 8px;
     }
+
+    .form__containerPassword{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: var(--border-inputs);
+        border-radius: 8px;
+        padding: 0px 10px 0 0px;
+        height: 50px;
+    }
+
     .form__input{
         border-radius: 8px;
         height: 50px;
@@ -141,14 +155,17 @@ export default {
         padding: 0px 8px;
     }
 
-    .form__showPass{
-        position: absolute;
-        height: 24px;
-        width: 24px;
-        transform: translate(265px, 43px);
-        cursor: pointer;
+    .inputPassword{
+        border: none;
+        height: 25px;
+        width: 300px;
     }
 
+    .form__showPass{
+        height: 24px;
+        width: 24px;
+        cursor: pointer;
+    }
 
     .form__container{
         display: flex;
@@ -197,10 +214,18 @@ export default {
             font-size: 30px;
         }
 
+        .form__containerPassword{
+            height: 80px;
+            max-width: 550px;
+        }
+
+        .inputPassword{
+            height: 40px;
+        }
+
         .form__showPass{
             height: 40px;
             width: 40px;
-            transform: translate(492px, 90px);
         }
         
         .form__errorMessage{
@@ -217,6 +242,20 @@ export default {
             width: 450px;
             height: 80px;
             font-size: 40px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .section__text{
+            margin-bottom: 30px;
+        }
+
+        .form__container{
+            margin-top: 30px;
+        }
+
+        .container__button{
+            cursor: pointer;
         }
     }
 </style>

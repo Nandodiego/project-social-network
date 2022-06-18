@@ -10,6 +10,8 @@ import ChangePassword from '@/views/ChangePassword';
 import Landing from '@/views/Landing';
 import PostsView from '@/views/PostsView'
 import ViewError from '@/views/ViewError'
+import ModalDesktop from '../components/ModalDesktopComponent.vue'
+import PostViewComponent from '../components/PostViewComponent.vue';
 
 import UserProfile from '@/views/UserProfile'
 
@@ -55,13 +57,8 @@ export default new Router({
             component: Landing
         },
         {
-            path: '/my-profile/:id',
-            name: 'my-profile',
-            component: MyProfile
-        },
-        {
             path: '/my-profile',
-            name: 'my-login-profile',
+            name: 'my-profile',
             component: MyProfile
         },
         {
@@ -74,6 +71,16 @@ export default new Router({
             path: '/posts-view',
             name: 'posts-view',
             component: PostsView,
+        },
+        {
+            path: '/modal-desktop',
+            name: 'modal-desktop',
+            component: ModalDesktop
+        },
+        {
+            path: '/post-view-component',
+            name: 'post-view-component',
+            component: PostViewComponent
         },
         {
             path: '*',

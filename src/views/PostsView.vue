@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <section class="section">
+        <section class="section post-movile">
             <div class="section__containerUserData">
                 <img @click="getUserLanding($event)" class="containerUserData__image" :src="userData.userImage" alt="image">
                 <h2 @click="getUserLanding($event)" class="containerUserData__text">{{userData.nickUser}}</h2>
@@ -17,6 +17,17 @@
                 <img class="containerLikePost__iconHeart" @click="likePost()" :src="iconLike" alt="icon like">
             </div>
         </section>
+        <PostViewComponent
+            class="post-desktop"
+            :userImage="userData.userImage"
+            :userName="userData.nickUser"
+            :userPostImage="userData.postImage"
+            :userPostDescription="userData.postDescription"
+            :postId="postId"
+            :amountLikes="userData.amountLikes"
+            :userId="userData.userId"
+            @likePost="likePost()"
+        />
     </div>
 </template>
 
@@ -25,6 +36,7 @@ import userImageDefect from '../assets/user-image.webp';
 import { postsServices } from '../services/posts/posts.services.js';
 import { getCookie, } from '@/utils/cookies.helper'
 import { userServices } from '../services/user/user.services.js'
+import PostViewComponent from '../components/PostViewComponent.vue';
 
 import heartIcon from '../assets/heart-icon.svg'
 import like from '../assets/like.svg'
@@ -32,6 +44,9 @@ import like from '../assets/like.svg'
 
 export default {
     name: 'posts-view',
+    components: {
+        PostViewComponent
+    },
     data(){
         return{
             urlPost: '',
@@ -40,13 +55,13 @@ export default {
                 userImage: '',
                 postImage: '',
                 postDescription: '',
-                amountLikes: '',
+                amountLikes: null,
                 userId: ''
             },
             iconLike: like,
             icon: false,
             postId: '',
-            arrayPost: []
+            arrayPost: [],
         }
     },
     methods: {
@@ -102,6 +117,9 @@ export default {
 
         this.urlPost = this.$route.query.urlPost;
         await this.getPost(this.urlPost);
+        if(this.userData.nickUser == ''){
+            this.$router.push({name: 'view-error'});
+        }
     }
 }
 </script>
@@ -115,6 +133,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .post-movile{
+        display: flex;
     }
 
     .section__containerUserData{
@@ -204,6 +226,10 @@ export default {
         transform: scale(.9);
     }
 
+    .post-desktop{
+        display: none;
+    }
+
     @media(min-width: 744px){
 
         .section__containerUserData{
@@ -249,6 +275,19 @@ export default {
             width: 60px;
             height: 60px;
             margin-right: 16px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .post-movile{
+            display: none;
+        }
+
+        .post-desktop{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
         }
     }
 </style>

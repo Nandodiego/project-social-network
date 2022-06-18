@@ -6,7 +6,7 @@
         <form class="form"
             @submit.prevent="sendEmail()"
         >
-            <label class="form__label" for="email">Email</label>
+            <label class="form__label" for="email">Correo</label>
             <input v-model="dataForm.email" class="form__input" type="email">
             <p class="form__errorMessage" v-if="errorEmail.state">{{errorEmail.message}}</p>
             <div class="form__container">
@@ -55,6 +55,13 @@ export default {
                 console.error(error);
             }
         },
+    },
+    watch: {
+        'dataForm.email': function () {
+            if(this.dataForm.email.length > 0){
+                this.errorEmail.state = false
+            }
+        }
     },
     mounted(){
         if(getCookie('token')){
@@ -172,6 +179,16 @@ export default {
             width: 450px;
             height: 80px;
             font-size: 40px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .section__recoveryPassword{
+            margin-bottom: 30px;
+        }
+
+        .form__container{
+            margin-top: 30px;
         }
     }
 </style>

@@ -1,15 +1,19 @@
 <template>
     <div class="body">
         <section id="preview" class="section">
-            <img @click="logOut()" class="section__iconExit" src="../assets/icon exit.svg" alt="icon exit">
-            <img id="img" class="section__image" :src="userProfile.userImage" alt="profile-image">
-            <form class="section__divFile"
-            >
-                <input ref="file" type="file" name="fileToUpload" id="inputFile" accept="image/png" @change="changeFile()" />
-                <img class="divFile__iconEdit" src="../assets/icon-edit.svg" alt="icon edit">
-            </form>
+            <div class="section__containerProfile">
+                <img id="img" class="containerProfile__image" :src="userProfile.userImage" alt="profile-image">
+                <form class="containerProfile__form"
+                >
+                    <input ref="file" type="file" name="fileToUpload" id="inputFile" accept="image/png" @change="changeFile()" />
+                    <img class="form__iconEdit" src="../assets/icon-edit.svg" alt="icon edit">
+                </form>
+            </div>
             <div class="section__container">
-                <h1 class="container__name">{{userProfile.nick}}</h1>
+                <div class="container__div">
+                    <h1 class="div__name">{{userProfile.nick}}</h1>
+                    <img @click="logOut()" class="div__iconExit" src="../assets/icon exit.svg" alt="icon exit">
+                </div>
                 <p class="container__text">{{userProfile.description}}</p>
             </div>
         </section>
@@ -113,26 +117,6 @@ export default {
         justify-content: center;
     }
 
-    .section__divFile{
-        position: absolute;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        top: 70px;
-        left: 25%;
-    }
-
-    #inputFile{
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-    }
-
     .section{
         display: flex;
         flex-direction: row;
@@ -142,12 +126,14 @@ export default {
         width: 100%;
     }
 
-    .section__iconExit{
-        position: absolute;
-        transform: translateX(165px);
+    .section__containerProfile{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: relative;
     }
 
-    .section__image{
+    .containerProfile__image{
         object-fit: cover;
         border-radius: 50%;
         width: 100px;
@@ -156,20 +142,55 @@ export default {
         margin-bottom: 12px;
     }
 
-    .divFile__iconEdit{
+    .containerProfile__form{
+        position: absolute;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        top: 62px;
+        left: 56%;
+    }
+
+    #inputFile{
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 0;
+    }
+
+    .form__iconEdit{
         width: 38px;
         height: 38px;
         border-radius: 50%;
         cursor: pointer;
+        bottom: 42px;
     }
 
-    .divFile__iconEdit:active{
+    .form__iconEdit:active{
         transform: scale(.9);
     }
 
-    .container__name{
+    .container__div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .div__name{
         font-size: 16px;
         margin-bottom: 8px;
+    }
+
+    .div__iconExit{
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
     }
 
     .container__text{
@@ -183,37 +204,110 @@ export default {
             align-items: center;
         }
 
-        .section__iconExit{
-            height: 50px;
-            width: 50px;
-            left: 70%;
-            top: 1%;
-        }
-
-        .section__image{
+        .containerProfile__image{
             width: 180px;
             height: 180px;
         }
 
-        .section__divFile{
+        .containerProfile__form{
             width: 60px;
             height: 60px;
-            top: 130px;
-            left: 25%;
+            top: 110px;
+            left: 116px;
         }
 
-        .divFile__iconEdit{
+        .section__containerProfile{
+            width: 180px;
+            height: 180px;
+        }
+
+        .form__iconEdit{
             width: 60px;
             height: 60px;
+            bottom: 64px;
         }
 
-        .container__name{
+        .div__name{
             font-size: 30px;
+        }
+
+        .div__iconExit{
+            width: 40px;
+            height: 40px;
         }
 
         .container__text{
             width: 420px;
             font-size: 24px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .section{
+            width: 935px;
+            padding-bottom: 24px;
+            margin-top: 50px;
+        }
+
+        .section__containerProfile{
+            display: flex;
+            flex-direction: revert;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .containerProfile__form{
+            height: 38px;
+            width: 38px;
+            top: 118px;
+            left: 120px;
+        }
+
+        .containerProfile__image{
+            width: 150px;
+            height: 150px;
+            margin-bottom: 0;
+        }
+
+        #inputFile{
+            height: 38px;
+            width: 38px;  
+        }
+
+        .form__iconEdit{
+            height: 38px;
+            width: 38px;
+        }
+
+        .div__iconExit{
+            width: 40px;
+            height: 40px;
+        }
+
+        .section__container{
+            width: 580px;
+        }
+
+        .container__text{
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .div__name{
+            font-size: 25px;
+        }
+
+        .container__text{
+            font-size: 25px;
+        }
+
+        .div{
+            width: 935px;
+        }
+
+        .article__image{
+            width: 293px;
+            height: 293px;
         }
     }
 </style>

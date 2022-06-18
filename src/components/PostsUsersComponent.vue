@@ -34,6 +34,7 @@
                     :userPostImage="userPost.urlImage"
                     :userPostDescription="userPost.description"
                     :showDeletePost="showDeletePost"
+                    :changeIcon="changeIcon"
                 />
             </article>
         </div>
@@ -55,8 +56,6 @@ export default {
     data(){
         return {
             active: false,
-            height: '420px',
-            description: '',
             arrayPosts: [],
             showModal: false,
             userData: {},
@@ -65,7 +64,8 @@ export default {
                 description: ''
             },
             postId: '',
-            showDeletePost: true
+            showDeletePost: true,
+            changeIcon: false
         }
     },
     props: {
@@ -102,8 +102,12 @@ export default {
             this.postId = postId;
             this.userPost.urlImage = userPost.urlImage;
             this.userPost.description = userPost.description;
-        
             this.showModal = true;
+
+            this.changeIcon = true;
+        },
+        closeModal(){
+            this.showModal = false;
         },
         async getUserData(){
             try{
@@ -122,9 +126,6 @@ export default {
             }catch(error){
                 console.error(error);
             }
-        },
-        closeModal(){
-            this.showModal = false;
         },
         async deletePost(postId){
             try{
@@ -154,6 +155,14 @@ export default {
         width: 100vw;
     }
 
+    .img{
+        cursor: pointer;
+    }
+
+     .postsRow{
+        cursor: pointer;
+    }
+
     .containerNotFoundPosts{
         margin-top: 12px;
     }
@@ -177,14 +186,14 @@ export default {
         grid-template-columns: repeat(1,1fr);
     }
 
+     .container__postsColumn{
+        margin: 2px;
+    }
+
     .containerColumn .galery__image{
         object-fit: cover;
         width: 100%;
         height: 420px;
-    }
-
-    .container__postsColumn{
-        margin: 2px;
     }
 
     .galery__image{
@@ -192,6 +201,7 @@ export default {
         width: 122px;
         height: 140px;
     }
+
     @media(min-width: 744px){
         .img{
             width: 40px;
@@ -222,6 +232,26 @@ export default {
 
          .containerColumn .galery__image{
             height: 650px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .container{
+            justify-content: space-evenly;
+        }
+
+        .div{
+            width: 935px;
+        }
+
+        .galery__image{
+            width: 293px;
+            height: 293px;
+            cursor: pointer;
+        }
+
+        .containerColumn .galery__image{
+            height: 820px;
         }
     }
 </style>

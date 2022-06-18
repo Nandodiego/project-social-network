@@ -238,6 +238,7 @@ export default {
         .divFile__input{
             width: 260px;
             height: 260px;
+            cursor: pointer;
         }
 
         .divFile__image{
@@ -273,6 +274,39 @@ export default {
             height: 60px;
             font-size: 26px;
             margin-bottom: 44px;
+            cursor: pointer;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .form{
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        #form__preview{
+            min-height: 350px;
+            max-height: 350px;
+        }
+
+        .container__label{
+            font-size: 24px;
+        }
+
+        .form__container{
+            padding-top: 0;
+        }
+
+        .divSubmit__input{
+            margin-bottom: 0;
+        }
+
+        .divSubmit__label{
+            font-size: 24px;
+        }
+
+        .divSubmit__input{
+            font-size: 24px;
         }
     }
 </style>

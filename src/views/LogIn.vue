@@ -7,12 +7,14 @@
             @submit.prevent="logInUser()"
         >
             <label class="form__label" for="email">Correo</label>
-            <input v-model="dataForm.email" class="form__input" id="email" type="email">
+            <input v-model="dataForm.email" class="form__input inputQueryDestop" id="email" type="email">
             <p class="form__errorMessage" v-if="emailError.state">{{emailError.message}}</p>
             <p class="form__errorMessage" v-if="errorExist.state">{{errorExist.message}}</p>
             <label class="form__label" for="password">Contraseña</label>
-            <input v-model="dataForm.password" class="form__input"  id="password" :type="changeTypePass">
-            <img v-if="hasShowEye" @click="showPassword()" class="form__showPass" :src="showPasswordImage" alt="show password">
+            <div class="form__containerPassword">
+                <input v-model="dataForm.password" class="form__input inputPassword"  id="password" :type="changeTypePass">
+                <img v-if="hasShowEye" @click="showPassword()" class="form__showPass" :src="showPasswordImage" alt="show password">
+            </div>
             <p class="form__errorMessage" v-if="passwordError.state">{{passwordError.message}}</p>
             <router-link :to="{name: 'recovery-password'}" class="form__forgotMyPassword">Olvidé mi contraseña.</router-link>
             <section class="form__footer">
@@ -126,8 +128,14 @@ export default {
         'dataForm.password': function (){
             if(this.dataForm.password.length > 0){
                 this.hasShowEye = true;
+                this.passwordError.state = false;
             }else{
                 this.hasShowEye = false;
+            }
+        },
+        'dataForm.email': function (){
+            if(this.dataForm.email.length > 0){
+                this.emailError.state = false;
             }
         }
     },
@@ -158,6 +166,7 @@ export default {
     }
 
     .form{
+        max-width: 300px;
         margin-top: 30px;
         display: flex;
         flex-direction: column;
@@ -167,6 +176,17 @@ export default {
     .form__label{
         font-size: 14px;
         margin-top: 40px;
+    }
+
+
+    .form__containerPassword{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: var(--border-inputs);
+        border-radius: 8px;
+        padding: 0px 10px 0 0px;
+        height: 50px;
     }
 
     .form__input{
@@ -182,11 +202,16 @@ export default {
         outline: none;
     }
 
+    .inputPassword{
+        border: none;
+        height: 25px;
+        margin-top: 0;
+    }
+
+
     .form__showPass{
-        position: absolute;
         height: 24px;
         width: 24px;
-        transform: translate(265px, 202px);
         cursor: pointer;
     }
 
@@ -241,6 +266,10 @@ export default {
             font-weight: 400;
         }
 
+        .form{
+            max-width: 550px;
+        }
+
         .form__label{
             font-size: 40px;
             font-weight: 400;
@@ -252,10 +281,17 @@ export default {
             font-size: 30px;
         }
 
+        .form__containerPassword{
+            height: 80px;
+        }
+
         .form__showPass{
-            height: 40px;
+           height: 40px;
             width: 40px;
-            transform: translate(492px, 318px);
+        }
+
+        .inputPassword{
+            height: 40px;
         }
 
         .form__errorMessage{
@@ -270,6 +306,26 @@ export default {
             width: 450px;
             height: 80px;
             font-size: 40px;
+        }
+    }
+
+    @media(min-width: 1280px){
+        .header, .form, .form__label{
+            margin-top: 0;
+        }
+
+        .inputQueryDestop{
+            margin-bottom: 20px;
+        }
+
+        .form__footer{
+            margin-top: 0px;
+            margin-top: 20px;
+        }
+
+        .form__showPass{
+            height: 40px;
+            width: 40px;
         }
     }
 </style>
