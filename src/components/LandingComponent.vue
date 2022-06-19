@@ -86,17 +86,14 @@ export default {
                 this.likeLogo = like;
             }
         },
-        onError(e){
+        onError(){
             alert('Failed to copy the text to the clipboard');
-            console.log(e);
         },
         sharePost(){
             setTimeout( () => {
                 this.textShare = false;
             }, 2000, this.textShare = true);
         }
-    },
-    mounted(){
     }
 }
 </script>
